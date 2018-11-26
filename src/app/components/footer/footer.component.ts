@@ -6,7 +6,7 @@ import { WebsocketService } from 'src/app/services/websocket.service';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent{
 
   constructor(
     public _wsService: WebsocketService
