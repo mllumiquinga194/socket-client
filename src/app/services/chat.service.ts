@@ -32,4 +32,17 @@ export class ChatService {
     //esto regresa un observable que esta escuchando cualquier emision de 'mensaje-privado'
     return this._wsService.listen( 'mensaje-privado' );
   }
+
+  //USAURIOS ACTIVOS
+  getUsuariosActivos(){
+
+    //Escuchar a los usuarios activos
+    return this._wsService.listen( 'usuarios-activos' );
+  }
+
+  //tambien es para obtener los usaurios activos
+  emitirUsuariosActivos(){
+
+    return this._wsService.emit( 'obtener-usuarios' );
+  }
 }

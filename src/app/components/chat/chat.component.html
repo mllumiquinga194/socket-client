@@ -5,16 +5,16 @@
 
 <div id="chat-mensajes">
   <li class="list-group-item" *ngFor="let msg of mensajes">
-    {{ msg.de }}: {{ msg.cuerpo }}
+    <span class="badge badge-primary">
+      {{ msg.de }}
+    </span>:
+    <span class="badge badge-danger">
+        {{ msg.cuerpo }}
+      </span> 
   </li>
 </div>
 
 <form (ngSubmit)="enviar()">
-  <input type="text" 
-         [(ngModel)]="texto" 
-         class="form-control chat-input" 
-         name="texto" 
-         placeholder="Mensaje..." 
-         autofocus
-         autocomplete="off">
+  <input type="text" [(ngModel)]="texto" class="form-control chat-input" name="texto" placeholder="Mensaje..."
+    autofocus autocomplete="off">
 </form>

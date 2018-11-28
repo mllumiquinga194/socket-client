@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Usuario } from '../classes/usuarios.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class WebsocketService {
   public usuario: Usuario = null;
 
   constructor(
-    private socket: Socket
+    private socket: Socket,
+    private _router: Router
   ) {
 
     //llamo aqui a esta funcion porque el constructor del servicio solo se ejecuta una vez y el connect y disconnect son observables, siempre van a estar pendiente con lo que suceda con el connect y disconnect
@@ -25,7 +27,7 @@ export class WebsocketService {
     this.socket.on('connect', () => {
       console.log('Conectado al Servidor');
       this.socketStatus = true;
-
+      this.cargarStorage();
     });
 
     this.socket.on('disconnect', () => {
@@ -76,6 +78,21 @@ export class WebsocketService {
           //   console.log(resp);
           // });
     });
+  }
+
+  logoutWS(){
+
+    this.usuario = null;
+    localStorage.removeItem('usuario');
+
+    const payload = {
+      nombre: 'sin-nombre'
+    }
+    //en el servidor tengo una funcion loginWs que me configura el usuario y ahi yo ignoro a los usuarios sin nombres, entonces puedo volver a usar esa funcion para "desconectar a un usuario mandandole como nombre: 'sin-nombre'
+    this.emit('configurar-usuario', payload, () => {
+      
+    });
+    this._router.navigateByUrl('');
   }
 
   getUsuario(){
